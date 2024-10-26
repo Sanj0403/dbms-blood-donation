@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Blood Test Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dfb1b8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #961706; 
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .blood-test-card {
+            background-color: #f4c8c8;
+            border: 3px solid #e0b4b4; 
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blood-test-card h3 {
+            margin: 0;
+            color: #c41e3a; 
+        }
+
+        .blood-test-card p {
+            margin: 5px 0;
+            color: #8c000f; 
+        }
+
+        h1 {
+            color: #572019;
+        }
+
+        h2 {
+            color: #572019;
+        }
+
+        div p {
+            color: #8c0c0c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blood Test Details</h1>
+    <div>
+        <p>Enter the test ID to find blood test details. Our system will instantly provide you with the relevant information you need.</p>
+        <br>
+    </div>
+    <form id="bloodTestForm">
+        <label for="test_id">Test ID:</label>
+        <input type="text" id="test_id" name="test_id" placeholder="Enter Test ID">
+        <button type="submit">Find Blood Test</button>
+    </form>
+    <h2>Blood Test Details:</h2>
+
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('bloodTestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const testIdInput = document.getElementById('test_id');
+            const testId = testIdInput.value.trim();
+
+            if (!testId) {
+                alert('Please enter a test ID.');
+                return;
+            }
+
+            fetch('/findBloodTest', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ test_id: testId })
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+          const resultsDiv = document.getElementById('results');
+           resultsDiv.innerHTML = '';
+
+          if (Array.isArray(data) && data.length > 0) {
+        data.forEach(bloodTest => {
+            const card = document.createElement('div');
+            card.classList.add('blood-test-card');
+
+                    const testIdHeading = document.createElement('h3');
+                    testIdHeading.textContent = `Test ID: ${bloodTest.TEST_ID}`;
+
+                    const donorIdParagraph = document.createElement('p');
+                    donorIdParagraph.innerHTML = `<strong>Donor ID:</strong> ${bloodTest.DONOR_ID}`;
+
+                    const testDateParagraph = document.createElement('p');
+                    testDateParagraph.innerHTML = `<strong>Test Date:</strong> ${new Date(bloodTest.TEST_DATE).toLocaleDateString()}`;
+
+                    const haemoglobinParagraph = document.createElement('p');
+                    haemoglobinParagraph.innerHTML= `<strong>Haemoglobin:</strong> ${bloodTest.HAEMOGLOBIN}`;
+
+                    const rbcCountParagraph = document.createElement('p');
+                    rbcCountParagraph.innerHTML = `<strong>RBC Count:</strong> ${bloodTest.RBC_COUNT}`;
+
+                    const wbcCountParagraph = document.createElement('p');
+                    wbcCountParagraph.innerHTML = `<strong>WBC Count:</strong> ${bloodTest.WBC_COUNT}`;
+
+                    const plateletCountParagraph = document.createElement('p');
+                    plateletCountParagraph.innerHTML = `<strong>Platelet Count:</strong> ${bloodTest.PLATELET_COUNT}`;
+
+                    const glucoseParagraph = document.createElement('p');
+                    glucoseParagraph.innerHTML = `<strong>Glucose:</strong> ${bloodTest.GLUCOSE}`;
+
+                    const docIdParagraph = document.createElement('p');
+                    docIdParagraph.innerHTML = `<strong>Doctor ID:</strong> ${bloodTest.doc_id}`;
+
+                    const eligibilityCheckParagraph = document.createElement('p');
+                    eligibilityCheckParagraph.innerHTML = `<strong>Eligibility Check:</strong> ${bloodTest.eligibility_check}`;
+
+                    const nameParagraph = document.createElement('p');
+                    nameParagraph.innerHTML = `<strong>Name:</strong> ${bloodTest.NAME}`;
+
+                    const ageParagraph = document.createElement('p');
+                    ageParagraph.innerHTML = `<strong>Age:</strong> ${bloodTest.AGE}`;
+
+                    const phoneParagraph = document.createElement('p');
+                    phoneParagraph.innerHTML = `<strong>Phone:</strong> ${bloodTest.PHONE}`;
+
+                    const genderParagraph = document.createElement('p');
+                    genderParagraph.innerHTML = `<strong>Gender:</strong> ${bloodTest.GENDER}`;
+
+                    const bloodTypeParagraph = document.createElement('p');
+                    bloodTypeParagraph.innerHTML = `<strong>Blood Type:</strong> ${bloodTest.BLOOD_TYPE}`;
+
+                    const allergiesParagraph = document.createElement('p');
+                    allergiesParagraph.innerHTML = `<strong>Allergies:</strong> ${bloodTest.allergies}`;
+
+                    const addressParagraph = document.createElement('p');
+                    addressParagraph.innerHTML = `<strong>Address:</strong> ${bloodTest.ADDRESS}`;
+
+                    const donationFreqParagraph = document.createElement('p');
+                    donationFreqParagraph.innerHTML = `<strong>Donation Frequency:</strong> ${bloodTest.DONATION_FREQ}`;
+
+                    card.appendChild(testIdHeading);
+                    card.appendChild(donorIdParagraph);
+                    card.appendChild(nameParagraph);
+                    card.appendChild(ageParagraph);
+                    card.appendChild(genderParagraph);
+                    card.appendChild(bloodTypeParagraph);
+                    card.appendChild(testDateParagraph);
+                    card.appendChild(haemoglobinParagraph);
+                    card.appendChild(rbcCountParagraph);
+                    card.appendChild(wbcCountParagraph);
+                    card.appendChild(plateletCountParagraph);
+                    card.appendChild(glucoseParagraph);
+                    card.appendChild(phoneParagraph);
+                    card.appendChild(allergiesParagraph);
+                    card.appendChild(addressParagraph);
+                    card.appendChild(donationFreqParagraph);
+                    card.appendChild(docIdParagraph);
+                    card.appendChild(eligibilityCheckParagraph);
+
+                    resultsDiv.appendChild(card);
+        });
+    } else {
+        const noBloodTestMessage = document.createElement('p');
+        noBloodTestMessage.textContent = 'No blood test details found.';
+        resultsDiv.appendChild(noBloodTestMessage);
+    }
+})
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    });
+
+    </script>
+</body>
+</html>

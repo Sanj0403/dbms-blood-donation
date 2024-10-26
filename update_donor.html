@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Donor Details</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #7aa6bb; 
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: rgba(193,229,246, 0.8); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0d628b;
+            color: #fff;
+            padding: 10px 15px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<form id="updateDonorForm" onsubmit="event.preventDefault(); updatedonor();">
+    <h2>Update Donor Details</h2>
+
+    <label for="donor_id">Donor ID:</label>
+    <input type="text" id="donor_id" name="donor_id" required autocomplete="off">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required autocomplete="off">
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required autocomplete="off">
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required autocomplete="off">
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required autocomplete="off">
+
+     <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required autocomplete="off">
+
+    <button type="submit">Update Details</button>
+</form>
+
+<script>
+    function updatedonor() {
+    var donor_id = document.getElementById("donor_id").value;
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var address = document.getElementById("address").value;
+    var phone = document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+
+    age = parseInt(age);
+
+    var data = {
+        donor_id: donor_id,
+        name: name,
+        age: age,
+        address: address,
+        phone: phone,
+        email: email
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:4000/update_donor", true); 
+
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                alert(xhr.responseText);
+            } else {
+                alert("Error updating donor details");
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify(data));
+}
+
+
+    function goBack() {
+        window.location.href = "page.html";
+    }
+    
+</script>
+
+
+</body>
+</html>

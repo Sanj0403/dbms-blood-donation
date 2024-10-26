@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipient Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #bc8787; 
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: rgba(237, 208, 207, 0.8); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .centered-text {
+            text-align: center;
+            font-size: 18px; 
+            color: #961706; 
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #6b0808;
+            color: #fff;
+            padding: 10px 15px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<form id="recipientForm" action="/insertrecipient" method="post">
+    <h2>Recipient Registration</h2>
+    <label for="r_name">Name:</label>
+    <input type="text" id="r_name" name="r_name" required>
+
+    <label for="r_age">Age:</label>
+    <input type="number" id="r_age" name="r_age" required>
+
+    <label for="r_gender">Gender:</label>
+    <select id="r_gender" name="r_gender" required>
+        <option value="m">Male</option>
+        <option value="f">Female</option>
+        <option value="o">Other</option>
+    </select>
+
+    <label for="r_address">Address:</label>
+    <input type="text" id="r_address" name="r_address" required>
+
+    <label for="r_phone">Phone Number:</label>
+    <input type="tel" id="r_phone" name="r_phone" required>
+
+    <label for="r_blood_type">Blood Type:</label>
+    <select id="r_blood_type" name="r_blood_type" required>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+    </select>
+
+
+    <label for="r_allergies">Allergies</label>
+    <select id="r_allergies" name="r_allergies" required>
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+        </select>
+
+    <input type="hidden" id="recipientId" name="recipient_id">
+    <button type="button" onclick="generateRecipientId()">Generate Recipient ID</button>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<div class="centered-text">
+        <p> Attribute ID: <b>1   </b> <br>    Attribute Name: <b>Blood Pressure</b></p>
+        <p> Attribute ID: <b>2   </b> <br>    Attribute Name: <b>Weight</b></p>
+        <p> Attribute ID: <b>3   </b> <br>    Attribute Name: <b>Height</b></p>
+        <p><em> The Attribute ID's and Values are to be entered as mentioned above. </em></p>
+        
+</div>
+
+<form action="/insertrecipientattributes" method="post">
+    <label for="recipient_id">Recipient ID:</label>
+    <input type="text" id="recipient_id" name="recipient_id" required>
+    
+    <label for="attribute_id">Attribute ID:</label>
+    <input type="text" id="attribute_id" name="attribute_id" required>
+    
+    <label for="attribute_value">Attribute Value:</label>
+    <input type="text" id="attribute_value" name="attribute_value" required>
+    
+    <button type="submit">Submit Recipient Attribute</button>
+</form>
+
+
+<script>
+    let counter = 1; 
+
+    function generateUniqueId() {
+        const autoIncrementedValue = counter++;
+        const randomPart = Math.random().toString(36).substr(2, 8); 
+        return `R${autoIncrementedValue}${randomPart}`;
+    }
+
+    function generateRecipientId() {
+        const recipientIdInput = document.getElementById('recipientId');
+        recipientIdInput.value = generateUniqueId();
+        alert('Generated Recipient ID: ' + recipientIdInput.value);
+    }
+
+
+</script>
+
+</body>
+</html>

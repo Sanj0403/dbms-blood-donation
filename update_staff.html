@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Staff Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a6c9c1;
+        
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #d0efe8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #0c5948;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<form id="updateStaffForm" onsubmit="event.preventDefault(); updateStaff();">
+    <h2>Update Staff Details</h2>
+
+    <label for="staff_id">Staff ID:</label>
+        <input type="text" id="staff_id" name="staff_id" required>
+
+        <label for="s_name">Name:</label>
+        <input type="text" id="s_name" name="s_name" required>
+
+        <label for="s_phone">Phone Number:</label>
+        <input type="tel" id="s_phone" name="s_phone" required>
+
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization" required>
+
+        <label for="days">Phone Number:</label>
+        <input type="text" id="days" name="days" required>
+    
+        <button type="submit" >Submit</button>
+        <button class="back-button" onclick="goBack()">Back to Home</button>
+    </form>
+        
+
+<script>
+    function updateStaff() {
+        var staff_id = document.getElementById("staff_id").value;
+        var s_name = document.getElementById("s_name").value;
+        var s_phone = document.getElementById("s_phone").value;
+        var specialization = document.getElementById("specialization").value;
+        var days = document.getElementById("days").value;
+
+        var data = {
+            staff_id: staff_id,
+            s_name: s_name,
+            s_phone: s_phone,
+            specialization: specialization,
+            days: days
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:4000/update_staff", true); 
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    alert(xhr.responseText);
+                } else {
+                    alert("Error updating staff details");
+                }
+            }
+        };
+
+        xhr.send(JSON.stringify(data));
+    }
+
+    function goBack() {
+        window.location.href = "page.html";
+    }
+</script>
+
+
+</body>
+</html>

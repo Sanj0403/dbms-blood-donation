@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blood Donation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0d1d0;
+        }
+        .navbar {
+            background-color: #dfb4b1; 
+            padding: 60px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #8e5959;
+            text-decoration: none;
+            margin: 0 30px;
+            font-size: 28px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #7e0d0d; 
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #d0a3a0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .dropdown-content a {
+            color: #422626;
+            padding: 8px 20px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+        .dropdown-content a:hover {
+            background-color: #c89393;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        #menu-btn {
+            display: none;
+        }
+        .content {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+
+    <nav class="navbar">
+        <div>
+            <a href="#home">Index</a>
+        </div>
+        <div>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Donor</a>
+                <div class="dropdown-content">
+                    <a href="update_donor">Update Donor</a>
+                    <a href="delete_donor">Delete Donor</a>
+                </div>
+            </div>   
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Recipient</a>
+                <div class="dropdown-content">
+                    <a href="update_recipient">Update Recipient</a>
+                    <a href="delete_recipient">Delete Recipient</a>
+                </div>
+            </div>  
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Staff</a>
+                <div class="dropdown-content">
+                    <a href="staff">Insert Staff</a>
+                    <a href="update_staff">Update Staff</a>
+                    <a href="delete_staff">Delete Staff</a>
+                    <a href="get_staff">Search</a>
+                </div>
+            </div>      
+                
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Inventory Management</a>
+                <div class="dropdown-content">
+                    <a href="inventory">Insert Inventory</a>
+                    <a href="update_inventory">Update Inventory</a>
+                    <a href="get_packets">Search Packets</a>
+                </div>
+            </div>
+             <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Blood Test</a>
+                <div class="dropdown-content">
+                    <a href="bloodtest">Insert Blood Test</a>
+                    <a href="get_bloodtest">Search Blood Test</a>
+                </div>
+            </div>                   
+            <a href="logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="content">
+    <h2 style="color: #7a201a; font-size: 54px; margin-bottom: 30px;">Welcome to the Blood Donation System!</h2>
+    <p style="color: #582926; font-size: 28px; line-height: 1.6;">Catalyzing Blood Donation: Equipping Staff to Make a Lifesaving Impact</p>
+    <img src="blood.png" alt="Blood Donation" style="margin-top: 20px; max-width: 100%;">
+</div>
+
+
+</section>
+
+<script>
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin' 
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/login';
+                } else {
+                    console.error('Logout failed:', response.status);
+                    alert('Logout failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+                alert('An error occurred during logout. Please try again later.');
+            });
+        });
+    </script>
+
+</body>
+</html>

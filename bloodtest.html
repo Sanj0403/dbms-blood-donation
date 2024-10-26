@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Testing Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eabfb8;
+            background: 
+    repeating-linear-gradient(45deg, #eabfb8, #f4f4f4 10px, #eabfb8 20px, #f4f4f4 30px);
+        
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #f5e9e7;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #722619;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Testing Form</title>
+</head>
+<body>
+    <form id="bloodTestForm" action="insertbloodtest" method="post">
+        <h2>Insert Blood Testing Form</h2>
+        <label for="test_id">Test ID:</label>
+        <input type="text" id="test_id" name="test_id" required>
+
+        <label for="t_donor_id">Donor ID:</label>
+        <input type="text" id="t_donor_id" name="t_donor_id" required>
+
+        <label for="test_date">Test Date:</label>
+        <input type="date" id="test_date" name="test_date" required>
+
+        <label for="haemoglobin">Haemoglobin:</label>
+        <input type="number" id="haemoglobin" name="haemoglobin" required>
+
+        <label for="wbc_count">WBC Count:</label>
+        <input type="number" id="wbc_count" name="wbc_count" required>
+
+        <label for="rbc_count">RBC Count:</label>
+        <input type="number" id="rbc_count" name="rbc_count" required>
+
+
+        <label for="platelet_count">Platelet Count:</label>
+        <input type="number" id="platelet_count" name="platelet_count" required>
+
+        <label for="glucose">Glucose:</label>
+        <input type="number" id="glucose" name="glucose" required>
+
+        <label for="eligibility_check">Eligibility Check:</label>
+        <select id="eligibility_check" name="eligibility_check" required>
+            <option value="y">Eligible</option>
+            <option value="n">Not Eligible</option>
+        </select>
+
+        <label for="doc_id">Doctor ID:</label>
+        <input type="text" id="doc_id" name="doc_id" required>
+
+        <button type="submit" >Submit</button>
+    </form>
+
+    <script>
+    function submitForm(event) {
+            event.preventDefault(); 
+            window.location.href = "page.html";
+        }
+    
+    </script>
+</body>
+</html>

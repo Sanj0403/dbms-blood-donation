@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Inventory Details</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #cfcfc2;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #f7f7ea;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        background-color: #f7f7ea;;
+        padding: 20px;
+        border-radius: 8px;s
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #3d3d25;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+<body>
+
+
+
+<form id="updateInventoryForm" onsubmit="event.preventDefault(); updateInventory();">
+    <h2>Update Inventory Details</h2>
+
+    <label for="packet_id">Packet ID:</label>
+    <input type="text" id="packet_id" name="packet_id" required autocomplete="off">
+
+    <label for="quantity_available">Quantity Available:</label>
+    <input type="text" id="quantity_available" name="quantity_available" required autocomplete="off">
+
+    <label for="expiration_date">Expiration Date:</label>
+    <input type="date" id="expiration_date" name="expiration_date" required autocomplete="off">
+
+    <button type="submit">Update Details</button>
+</form>
+
+<script>
+    function updateInventory() {
+        var packet_id = document.getElementById("packet_id").value;
+        var quantity_available = document.getElementById("quantity_available").value;
+        var expiration_date = document.getElementById("expiration_date").value;
+
+        quantity_available = parseInt(quantity_available);
+
+        var data = {
+            packet_id: packet_id,
+            quantity_available: quantity_available,
+            expiration_date: expiration_date
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:4000/update_inventory", true);
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    alert(xhr.responseText);
+                } else {
+                    alert("Error updating inventory details");
+                }
+            }
+        };
+
+        xhr.send(JSON.stringify(data));
+    }
+
+    function goBack() {
+        window.location.href = "page.html";
+    }
+</script>
+
+</body>
+</html>

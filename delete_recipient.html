@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Recipient</title>
+       <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #bc8787; 
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: rgba(237, 208, 207, 0.8); 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #6b0808;
+            color: #fff;
+            padding: 10px 15px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Delete Recipient</h2>
+
+    <label for="recipient_id">Enter Recipient ID:</label>
+    <input type="text" id="recipient_id" name="recipient_id" required>
+    <button onclick="deleteRecipient()">Delete Recipient</button>
+
+    <script>
+    function deleteRecipient() {
+        const recipient_id = document.getElementById('recipient_id').value;
+
+        fetch(`http://localhost:4000/recipient/${recipient_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            alert('Error deleting recipient');
+        });
+    }
+        function goBack() {
+        window.location.href = "page.html";
+    }
+</script>
+
+</body>
+</html>
